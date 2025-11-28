@@ -11,108 +11,190 @@ body {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  padding: 8px;
 }
 
-.app {
-  background: #ffffffee;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  max-width: 1200px;
+#app {
   width: 100%;
-  padding: 14px;
+  max-width: 900px;
+  min-height: 100vh;
+  background: #ffffffee;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER GLOBAL */
+
+.topbar {
+  padding: 10px 14px;
+  border-bottom: 1px solid #ececec;
+  text-align: center;
+}
+
+.topbar h1 {
+  font-size: 1.4rem;
+}
+
+/* VUES */
+
+.view {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+}
+
+.view.active {
+  display: flex;
+}
+
+/* ACCUEIL : LISTE */
+
+.subtitle {
+  padding: 8px 14px 4px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.drawing-list {
+  padding: 8px 10px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
 }
 
-header h1 {
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 4px;
+.drawing-card {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 12px;
+  background: #f7f9ff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+  align-items: center;
 }
 
-header p {
+.drawing-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drawing-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.drawing-info h3 {
   font-size: 0.95rem;
-  text-align: center;
-  color: #444;
+  margin-bottom: 3px;
 }
 
-main {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  margin-top: 6px;
+.drawing-info p {
+  font-size: 0.8rem;
+  color: #666;
 }
 
-.sidebar {
-  width: 290px;
+/* STUDIO */
+
+.studio-header {
+  padding: 6px 10px;
+  border-bottom: 1px solid #ececec;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 8px;
 }
 
-.panel {
-  background: #f7f9ff;
-  border-radius: 14px;
-  padding: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+.icon-btn {
+  border: none;
+  background: #f1f3ff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
-.panel h2 {
+.studio-title h2 {
+  font-size: 1rem;
+}
+
+.studio-title p {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.studio-layout {
+  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* VOLET OUTILS LATERAL */
+
+.tool-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 260px;
+  max-width: 80%;
+  height: 100%;
+  background: #f7f9ff;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  z-index: 20;
+}
+
+.tool-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-inner {
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.drawer-inner h3 {
   font-size: 1rem;
   margin-bottom: 4px;
 }
 
-.panel .hint {
-  font-size: 0.7rem;
-  color: #666;
-  margin-bottom: 6px;
-}
-
-.panel code {
-  background: #ecefff;
-  padding: 1px 4px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-}
-
-#drawingSelect {
-  width: 100%;
-  padding: 6px 8px;
+.drawer-section {
+  background: #ffffff;
   border-radius: 10px;
-  border: 1px solid #ccd;
-  font-size: 0.9rem;
-  margin-bottom: 6px;
+  padding: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  font-size: 0.85rem;
 }
 
-#reloadBtn {
-  width: 100%;
-  padding: 6px 8px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: #ffd25f;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+.drawer-section h4 {
+  margin-bottom: 4px;
 }
 
 .tools {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 4px;
 }
 
 .tool-btn {
   flex: 1 1 48%;
-  padding: 6px 4px;
-  font-size: 0.8rem;
+  padding: 5px;
   border-radius: 999px;
   border: 1px solid #ccd;
   background: #fff;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .tool-btn.active {
@@ -121,21 +203,13 @@ main {
   border-color: #4e7dff;
 }
 
-.slider-group {
-  margin-top: 8px;
-  font-size: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
 #sizeRange {
   width: 100%;
 }
 
-#sizeLabel {
-  font-size: 0.8rem;
-  color: #555;
+.small-text {
+  font-size: 0.75rem;
+  color: #666;
 }
 
 .colors {
@@ -146,8 +220,8 @@ main {
 }
 
 .color-btn {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px rgba(0,0,0,0.12);
@@ -159,8 +233,7 @@ main {
 }
 
 .custom-color {
-  margin-top: 8px;
-  font-size: 0.85rem;
+  margin-top: 6px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -169,78 +242,95 @@ main {
 .custom-color input[type="color"] {
   width: 100%;
   height: 32px;
-  padding: 0;
   border-radius: 8px;
   border: 1px solid #ccd;
-  background: #fff;
 }
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
 }
 
-.actions button {
-  flex: 1 1 48%;
-  padding: 8px 6px;
+.action-btn {
+  flex: 1;
+  padding: 6px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-#clearBtn {
+.action-btn.danger {
   background: #ff6961;
   color: #fff;
 }
 
-#saveBtn {
+.action-btn.success {
   background: #77dd77;
 }
 
-.canvas-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
+/* SELECT DESSINS DANS LE VOLET */
+#drawingSelect {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 4px 6px;
+  border-radius: 8px;
+  border: 1px solid #ccd;
+  font-size: 0.85rem;
 }
 
-.canvas-wrapper {
-  width: 100%;
-  background: #f2f6ff;
-  border-radius: 18px;
-  padding: 10px;
-  box-shadow: inset 0 0 0 2px #e1e7ff;
+/* OVERLAY VOLET */
+
+.drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 10;
+}
+
+.drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* CANVAS PLEIN ÉCRAN */
+
+.canvas-container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 6px;
 }
 
 #colorCanvas {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 0 0 3px #e3e3e3;
   max-width: 100%;
-  height: auto;
+  max-height: calc(100vh - 130px); /* moins header + studio-header */
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 0 0 3px #e3e3e3;
   touch-action: none;
 }
 
-.tip {
-  font-size: 0.8rem;
-  color: #555;
-}
+/* GRAND ÉCRAN : VOLET TOUJOURS OUVERT */
 
-/* Responsive */
-@media (max-width: 900px) {
-  main {
-    flex-direction: column-reverse;
+@media (min-width: 850px) {
+  .tool-drawer {
+    position: relative;
+    transform: translateX(0);
+    max-width: 260px;
   }
-  .sidebar {
-    width: 100%;
+
+  .drawer-overlay {
+    display: none;
+  }
+
+  .studio-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
   }
 }
