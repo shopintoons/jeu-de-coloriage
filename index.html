@@ -2,67 +2,93 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Jeu de Coloriage Complet</title>
+  <title>Studio de Coloriage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
-    <header>
+  <div id="app">
+
+    <!-- HEADER GLOBAL -->
+    <header class="topbar">
       <h1>🎨 Studio de Coloriage</h1>
-      <p>Choisis un dessin, un outil (crayon, pinceau, feutre, pot de peinture) et amuse-toi à colorier.</p>
     </header>
 
-    <main>
-      <aside class="sidebar">
-        <section class="panel">
-          <h2>Dessins</h2>
-          <p class="hint">Ajoute tes images dans <code>assets/</code> et déclare-les dans <code>drawings</code> (script.js).</p>
-          <select id="drawingSelect"></select>
-          <button id="reloadBtn">🔄 Recharger le dessin</button>
-        </section>
+    <!-- VUE ACCUEIL : LISTE DES DESSINS -->
+    <main id="homeView" class="view active">
+      <p class="subtitle">
+        Choisis un dessin à colorier.
+      </p>
 
-        <section class="panel">
-          <h2>Outils</h2>
-          <div class="tools" id="toolButtons">
-            <button data-tool="pencil" class="tool-btn active">✏️ Crayon</button>
-            <button data-tool="brush" class="tool-btn">🖌️ Pinceau</button>
-            <button data-tool="marker" class="tool-btn">🖍️ Feutre</button>
-            <button data-tool="bucket" class="tool-btn">🪣 Pot de peinture</button>
-            <button data-tool="eraser" class="tool-btn">🧽 Gomme</button>
-          </div>
+      <div id="drawingList" class="drawing-list">
+        <!-- Les cartes de dessins seront ajoutées par script.js -->
+      </div>
+    </main>
 
-          <div class="slider-group">
-            <label for="sizeRange">Taille du trait :</label>
-            <input type="range" id="sizeRange" min="2" max="60" value="16" />
-            <span id="sizeLabel">16 px</span>
-          </div>
-        </section>
-
-        <section class="panel">
-          <h2>Couleurs</h2>
-          <div class="colors" id="colorPalette"></div>
-          <div class="custom-color">
-            <label for="customColor">Couleur personnalisée :</label>
-            <input type="color" id="customColor" value="#ff0000" />
-          </div>
-        </section>
-
-        <section class="panel">
-          <h2>Actions</h2>
-          <div class="actions">
-            <button id="clearBtn">🧹 Tout effacer</button>
-            <button id="saveBtn">💾 Sauvegarder</button>
-          </div>
-        </section>
-      </aside>
-
-      <section class="canvas-area">
-        <div class="canvas-wrapper">
-          <canvas id="colorCanvas" width="800" height="800"></canvas>
+    <!-- VUE STUDIO : COLORIAGE PLEIN ÉCRAN -->
+    <main id="studioView" class="view">
+      <div class="studio-header">
+        <button id="backHomeBtn" class="icon-btn">←</button>
+        <div class="studio-title">
+          <h2 id="currentDrawingLabel">Coloriage</h2>
+          <p>Colorie avec ton doigt ou ta souris.</p>
         </div>
-        <p class="tip">Astuce : sur téléphone, utilise ton doigt. Sur ordinateur, utilise la souris.</p>
-      </section>
+        <button id="toggleDrawerBtn" class="icon-btn">☰</button>
+      </div>
+
+      <div class="studio-layout">
+        <!-- VOLET OUTILS -->
+        <aside id="toolDrawer" class="tool-drawer">
+          <div class="drawer-inner">
+            <h3>Outils</h3>
+
+            <div id="toolButtons" class="tools">
+              <button data-tool="pencil" class="tool-btn active">✏️ Crayon</button>
+              <button data-tool="brush" class="tool-btn">🖌️ Pinceau</button>
+              <button data-tool="marker" class="tool-btn">🖍️ Feutre</button>
+              <button data-tool="bucket" class="tool-btn">🪣 Pot de peinture</button>
+              <button data-tool="eraser" class="tool-btn">🧽 Gomme</button>
+            </div>
+
+            <div class="drawer-section">
+              <label for="sizeRange">Taille du trait :</label>
+              <input type="range" id="sizeRange" min="2" max="60" value="16" />
+              <span id="sizeLabel" class="small-text">16 px</span>
+            </div>
+
+            <div class="drawer-section">
+              <h4>Couleurs</h4>
+              <div id="colorPalette" class="colors"></div>
+              <div class="custom-color">
+                <label for="customColor">Couleur personnalisée :</label>
+                <input type="color" id="customColor" value="#ff0000" />
+              </div>
+            </div>
+
+            <div class="drawer-section">
+              <h4>Actions</h4>
+              <div class="actions">
+                <button id="clearBtn" class="action-btn danger">🧹 Tout effacer</button>
+                <button id="saveBtn" class="action-btn success">💾 Sauvegarder</button>
+              </div>
+            </div>
+
+            <div class="drawer-section">
+              <h4>Dessins</h4>
+              <select id="drawingSelect"></select>
+              <button id="reloadBtn" class="action-btn">🔄 Recharger le dessin</button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- OVERLAY POUR FERMER LE VOLET SUR MOBILE -->
+        <div id="drawerOverlay" class="drawer-overlay"></div>
+
+        <!-- ZONE CANVAS PLEIN ÉCRAN -->
+        <section class="canvas-container">
+          <canvas id="colorCanvas"></canvas>
+        </section>
+      </div>
     </main>
   </div>
 
